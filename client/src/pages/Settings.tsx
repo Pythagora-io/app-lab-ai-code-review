@@ -23,8 +23,12 @@ export function Settings() {
     const loadSettings = async () => {
       try {
         const settings = await getSettings();
-        setValue("githubToken", settings.githubToken);
-        setValue("openaiKey", settings.openaiKey);
+        if (settings.githubToken) {
+          setValue("githubToken", settings.githubToken);
+        }
+        if (settings.openaiKey) {
+          setValue("openaiKey", settings.openaiKey);
+        }
       } catch (error) {
         toast({
           variant: "destructive",
@@ -44,10 +48,12 @@ export function Settings() {
         description: "Settings saved successfully",
       });
     } catch (error) {
+      // Extract the specific error message from the API response
+      const errorMessage = error.message || "Failed to save settings";
       toast({
         variant: "destructive",
         title: "Error",
-        description: "Failed to save settings",
+        description: errorMessage,
       });
     }
   };

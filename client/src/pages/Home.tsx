@@ -44,6 +44,12 @@ export function Home() {
       setLoading(true);
       const response = await analyzeRepo(data.repoUrl);
 
+      // If analysis is already completed, redirect immediately to results page
+      if (response.status === 'completed') {
+        navigate(`/explain/${response.analysisId}`);
+        return;
+      }
+
       if (response.status === 'processing') {
         const interval = setInterval(async () => {
           const status = await getAnalysisStatus(response.analysisId);

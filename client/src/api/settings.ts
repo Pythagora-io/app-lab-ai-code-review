@@ -4,25 +4,26 @@ import api from './api';
 // Endpoint: POST /api/settings
 // Request: { githubToken: string, openaiKey: string }
 // Response: { success: boolean, message: string }
-export const saveSettings = (data: { githubToken: string; openaiKey: string }) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({ success: true, message: 'Settings saved successfully' });
-    }, 500);
-  });
+export const saveSettings = async (data: { githubToken: string; openaiKey: string }) => {
+  try {
+    const response = await api.post('/api/settings', data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(error?.response?.data?.error || error.message);
+  }
 };
 
 // Description: Get user settings
 // Endpoint: GET /api/settings
 // Request: {}
-// Response: { githubToken: string, openaiKey: string }
-export const getSettings = () => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        githubToken: 'github_pat_xxx',
-        openaiKey: 'sk-xxx',
-      });
-    }, 500);
-  });
+// Response: { githubToken: string | null, openaiKey: string | null }
+export const getSettings = async () => {
+  try {
+    const response = await api.get('/api/settings');
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(error?.response?.data?.error || error.message);
+  }
 };
