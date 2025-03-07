@@ -110,8 +110,8 @@ To run this project, you will need:
 
 ### License
 
-The project is proprietary (not open source).
+The project is open source, licensed under the MIT License. See the [LICENSE](LICENSE).
 
 ```
-Copyright (c) 2024.
+Copyright © 2025 Pythagora-io.
 ```
